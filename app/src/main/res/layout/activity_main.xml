@@ -26,13 +26,13 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:orientation="horizontal"
             android:background="@color/colorPrimaryDark">
 
             <EditText
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:inputType="text"
                 android:maxLines="1"
                 android:padding="@dimen/dimen_5"
@@ -42,14 +42,18 @@
                 android:hint="@string/type_word_to_search"
                 android:background="@drawable/input_background"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/button_search"/>
+                app:layout_constraintEnd_toStartOf="@id/button_search"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+                <requestFocus/>
+            </EditText>
+
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_search"
                 android:id="@+id/button_search"
-                android:layout_margin="@dimen/dimen_5"
                 android:contentDescription="@string/app_name"
                 android:padding="@dimen/dimen_10"
                 android:background="@color/colorPrimaryDark"

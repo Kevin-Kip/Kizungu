@@ -1,11 +1,13 @@
 package com.truekenyan.kizungu
 
+import android.content.Intent
 import android.os.Build
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
-import android.speech.tts.Voice
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import java.util.*
 
@@ -38,6 +40,18 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             textToSpeech?.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_options, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId){
+            R.id.options_settings -> startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroy() {

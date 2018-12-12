@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Kizungu</string>
+    <string name="type_word_to_search">Type word to search ...</string>
 </resources>

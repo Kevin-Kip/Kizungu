@@ -2,4 +2,6 @@
     <string name="app_name">Kizungu</string>
     <string name="type_word_to_search">Type word to search ...</string>
     <string name="settings">Settings</string>
+    <string name="speak">Speak</string>
+    <string name="history">History</string>
 </resources>

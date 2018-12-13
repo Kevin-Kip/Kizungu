@@ -4,4 +4,9 @@
     <string name="settings">Settings</string>
     <string name="speak">Speak</string>
     <string name="history">History</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet. This is usually a long text but I don\'t remmenber it all, so am going to write some English bull to replace it instead.</string>
+    <string name="nothing_to_display">Nothing to display</string>
+    <string name="adjective">Adjective</string>
+    <string name="noun">Noun</string>
+    <string name="clear_history">Clear History</string>
 </resources>

@@ -19,16 +19,16 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:id="@+id/toolbar"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:title="@string/app_name"/>
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
             android:orientation="horizontal"
-            android:background="@color/colorPrimaryDark">
+            android:background="@android:color/white">
 
             <EditText
                 android:layout_width="0dp"
@@ -42,12 +42,27 @@
                 android:hint="@string/type_word_to_search"
                 android:background="@drawable/input_background"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/button_search"
+                app:layout_constraintEnd_toStartOf="@id/button_clear"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent">
                 <requestFocus/>
             </EditText>
 
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_clear"
+                android:id="@+id/button_clear"
+                android:visibility="invisible"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="@string/app_name"
+                android:padding="@dimen/dimen_10"
+                app:layout_constraintTop_toTopOf="@id/input_word"
+                app:layout_constraintBottom_toBottomOf="@id/input_word"
+                app:layout_constraintEnd_toStartOf="@id/button_search"
+                app:layout_constraintStart_toEndOf="@id/input_word"/>
 
             <ImageButton
                 android:layout_width="wrap_content"
@@ -56,13 +71,17 @@
                 android:id="@+id/button_search"
                 android:contentDescription="@string/app_name"
                 android:padding="@dimen/dimen_10"
-                android:background="@color/colorPrimaryDark"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
                 app:layout_constraintTop_toTopOf="@id/input_word"
                 app:layout_constraintBottom_toBottomOf="@id/input_word"
-                app:layout_constraintStart_toEndOf="@id/input_word"
+                app:layout_constraintStart_toEndOf="@id/button_clear"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
         </android.support.constraint.ConstraintLayout>
     </android.support.design.widget.AppBarLayout>
+
+
 
 </android.support.constraint.ConstraintLayout>

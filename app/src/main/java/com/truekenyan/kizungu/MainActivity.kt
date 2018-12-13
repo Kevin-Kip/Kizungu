@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private var textToSpeech: TextToSpeech? = null
     private var text: String? = null
+    private var currentWord: Word? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,28 +33,48 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun initListeners(){
         button_search.setOnClickListener {
-            text = input_word.text.trim().toString()
+            if (text?.isNotEmpty()!!) {
+                findWord(text)
+            }
         }
 
         button_clear.setOnClickListener {
             input_word.text.clear()
         }
 
+        button_speak.setOnClickListener {
+            speak(text)
+        }
+
         input_word.addTextChangedListener(object : TextWatcher{
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+                text = s?.trim().toString()
+                when (text!!.length){
+                    0 -> {
+                        scroll_view.visibility = View.GONE
+                        nothing_text.visibility = View.VISIBLE
+                        button_clear.visibility = View.GONE
+                    }
+                    else -> {
+                        scroll_view.visibility = View.VISIBLE
+                        nothing_text.visibility = View.GONE
+                        button_clear.visibility = View.VISIBLE
+                        word.text = text
+                        word_type.text = getString(R.string.adjective)
+                    }
+                }
+            }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 button_search.isEnabled = count > 0
             }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (count > 0) {
-                    button_clear.visibility = View.VISIBLE
-                } else {
-                    button_clear.visibility = View.INVISIBLE
-                }
-            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
+    }
+
+    private fun findWord(text: String?) {
+
     }
 
     override fun onInit(status: Int) {

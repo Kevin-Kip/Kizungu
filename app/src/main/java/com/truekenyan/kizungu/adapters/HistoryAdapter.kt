@@ -23,4 +23,8 @@ class HistoryAdapter(private var wordList: List<Word>) : RecyclerView.Adapter<Hi
         wordList = list
         notifyDataSetChanged()
     }
+
+    fun clearItems(){
+        notifyDataSetChanged()
+    }
 }

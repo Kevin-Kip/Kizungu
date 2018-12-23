@@ -17,7 +17,6 @@ import com.truekenyan.kizungu.R
 import com.truekenyan.kizungu.models.Word
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONArray
-import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
@@ -39,8 +38,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         textToSpeech = TextToSpeech(this@MainActivity, this)
         initListeners()
-
-        loadJSON(applicationContext)
     }
 
     private fun initListeners(){
@@ -86,7 +83,33 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun findWord(text: String?) {
+        val firstLetter = text!![0]
+        val jsonArray = JSONArray(loadJSON(firstLetter, this@MainActivity))
+        for (item in 0 until (jsonArray.length() - 1)){
+            val jsonObject: JSONObject = jsonArray[item] as JSONObject
+            currentWord = Word(0,
+                    jsonObject["word"] as String,
+                    getWordType(jsonObject["type"] as String),
+                    jsonObject["description"] as String)
+            allWords.add(currentWord!!)
+        }
+        Toast.makeText(applicationContext, "${allWords.size} words found", Toast.LENGTH_SHORT).show()
+    }
 
+    private fun loadJSON(firstLetter: Char, context: Context): String? {
+        var json: String? = null
+        try {
+            val inputStream: InputStream = context.assets.open("$firstLetter.json")
+            val buffer = ByteArray(inputStream.available())
+            inputStream.read(buffer)
+            json = String(buffer, Charset.defaultCharset())
+
+            inputStream.close()
+        } catch (e: IOException){
+            Log.e("JSON LOAD ERROR", e.localizedMessage)
+            e.printStackTrace()
+        }
+        return json
     }
 
     override fun onInit(status: Int) {
@@ -135,36 +158,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private fun getWordType(annotation: String): String {
         return when(annotation){
             "(n. )" -> "Noun"
-            else -> ""
-        }
-    }
-
-    private fun loadJSON(context: Context): String? {
-        var json: String? = null
-        try {
-            val inputStream: InputStream = context.assets.open("dictionary.json")
-            val buffer = ByteArray(inputStream.available())
-            inputStream.read(buffer)
-            json = String(buffer, Charset.defaultCharset())
-
-            inputStream.close()
-        } catch (e: IOException){
-            Log.e("JSON LOAD ERROR", e.localizedMessage)
-            e.printStackTrace()
-        }
-        return json
-    }
-
-    override fun onStart() {
-        super.onStart()
-        try {
-            val jsonArray = JSONArray(loadJSON(this@MainActivity))
-            Toast.makeText(applicationContext, jsonArray.length(), Toast.LENGTH_SHORT).show()
-
-        } catch (e: IOException){
-            Log.e("JSON PARSE ERROR", e.message)
-        } catch (j: JSONException){
-            Log.e("JSON PARSE ERROR", j.message)
+            else -> "Default"
         }
     }
 }

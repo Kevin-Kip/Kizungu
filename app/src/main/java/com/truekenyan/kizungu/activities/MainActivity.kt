@@ -158,6 +158,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private fun getWordType(annotation: String): String {
         return when(annotation){
             "(n. )" -> "Noun"
+            "(conj. )" -> "Conjunction"
             else -> "Default"
         }
     }

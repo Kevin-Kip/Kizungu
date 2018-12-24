@@ -14,7 +14,7 @@ class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val pastParent = itemView.findViewById<ConstraintLayout>(R.id.item_parent)
     private val listener = pastParent.context as ClickListener
     fun bind(word: Word){
-        pastWord.text = word.text
+        pastWord.text = word.wordText
         pastWordType.text = word.type
 
         pastParent.setOnClickListener(clickListener(word.wordId))

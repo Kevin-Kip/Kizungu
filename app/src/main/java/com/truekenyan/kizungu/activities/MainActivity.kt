@@ -84,16 +84,30 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun findWord(text: String?) {
         val firstLetter = text!![0]
-        val jsonArray = JSONArray(loadJSON(firstLetter, this@MainActivity))
-        for (item in 0 until (jsonArray.length() - 1)){
-            val jsonObject: JSONObject = jsonArray[item] as JSONObject
-            currentWord = Word(0,
-                    jsonObject["word"] as String,
-                    getWordType(jsonObject["type"] as String),
-                    jsonObject["description"] as String)
-            allWords.add(currentWord!!)
+        try {
+            val jsonArray = JSONArray(loadJSON(firstLetter.toLowerCase(), this@MainActivity))
+            for (item in 0 until (jsonArray.length() - 1)) {
+                val jsonObject: JSONObject = jsonArray[item] as JSONObject
+                currentWord = Word(0,
+                        jsonObject["word"] as String,
+                        jsonObject["type"] as String,
+                        jsonObject["description"] as String)
+                if ((currentWord!!.wordText)!!.contains(text, true)) {
+                    allWords.add(currentWord!!)
+                }
+            }
+        } catch (e: Exception){
+            Toast.makeText(this@MainActivity,"Unable to find word", Toast.LENGTH_SHORT).show()
         }
-        Toast.makeText(applicationContext, "${allWords.size} words found", Toast.LENGTH_SHORT).show()
+
+        for (w in allWords) {
+            if ((w.wordText).equals(text, true)) {
+                word.text = w.wordText
+                word_type.text = getWordType(w.type!!)
+                meaning.text = w.meaning
+                break
+            }
+        }
     }
 
     private fun loadJSON(firstLetter: Char, context: Context): String? {
@@ -157,7 +171,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun getWordType(annotation: String): String {
         return when(annotation){
-            "(n. )" -> "Noun"
+            "(n.)" -> "Noun"
             "(conj. )" -> "Conjunction"
             else -> "Default"
         }

@@ -9,8 +9,10 @@ Coming soon ...
 <img src="/screenshots/device1.png" width="250px">
 
 ## Thanks
-[1] UI was inspired by [this](https://www.uplabs.com/posts/dictionary-application) design on [uplabs](https://www.uplabs.com/).
-[2] [Carlos](https://github.com/carloscj6/) for help with logic.
+[1]UI was inspired by [this](https://www.uplabs.com/posts/dictionary-application) design on [uplabs](https://www.uplabs.com/).\
+
+[2][Carlos](https://github.com/carloscj6/) for help with logic
+
 
 ## Promise ...
 More changes coming. This is work in progress.
